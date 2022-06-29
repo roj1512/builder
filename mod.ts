@@ -13,42 +13,51 @@ export class MarkdownV2 {
 
   push(text: string) {
     this.#text += md(text);
+    return this;
   }
 
   bold(text: string) {
     this.#text += `*${md(text)}*`;
+    return this;
   }
 
   italic(text: string) {
     this.#text += `_${md(text)}_`;
+    return this;
   }
 
   underline(text: string) {
     this.#text += `__${md(text)}__`;
+    return this;
   }
 
   strikethrough(text: string) {
     this.#text += `~${md(text)}~`;
+    return this;
   }
 
   spoiler(text: string) {
     this.#text += `||${md(text)}||`;
+    return this;
   }
 
   code(text: string) {
     this.#text += `\`${text}\``;
+    return this;
   }
 
   pre(text: string, language?: string) {
     this.#text += `\n\`\`\`${language ?? ""}\n${text}\n\`\`\`\n`;
+    return this;
   }
 
   link(url: string, text?: string) {
     this.#text += text ? `[${md(text)}](${md(url)})` : md(url);
+    return this;
   }
 
   mention(idOrUser: number | User, text?: string) {
-    this.link(
+    return this.link(
       `tg://user?id=${typeof idOrUser == "number" ? idOrUser : idOrUser.id}`,
       text ?? typeof idOrUser === "number"
         ? String(idOrUser)
